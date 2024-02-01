@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Personaje</title>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <style>
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="Tarjeta Info" class="card" style="width: 18rem;">
+    <img src="#" class="card-img-top" alt="Character Image">
+    <div class="card-body">
+      <h5 class="card-title">Nombre del Personaje</h5>
+      <p class="card-text">Estado: <span id="Estado"></span></p>
+      <p class="card-text">Especie: <span id="TipoEspecie"></span></p>
+    </div>
+    <div class="card-footer">
+      <button id="PersonajeRandom" class="btn btn-primary">Cargar Personaje Aleatorio</button>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+  <script>
+    function Peticion(PersonajeID) {
+      const apiUrl = `https://rickandmortyapi.com/api/character/${PersonajeID}`;
+      fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+          
+          document.getElementById('Tarjeta Info').querySelector('.card-img-top').src = data.image;
+          document.getElementById('Tarjeta Info').querySelector('.card-body').innerHTML = `
+            <h5 class="card-title">${data.name}</h5>
+            <p class="card-text">Estado: <span id="Estado">${data.status}</span></p>
+            <p class="card-text">Especie: <span id="TipoEspecie">${data.species}</span></p>
+          `;
+        })
+        .catch(error => console.error('Error', error));
+    }
+
+   
+    const PersonajeID = Math.floor(Math.random() * 826);
+    Peticion(PersonajeID);
+
+    document.getElementById('PersonajeRandom').addEventListener('click', function() {
+      const randomPersonajeID = Math.floor(Math.random() * 826);
+      Peticion(randomPersonajeID);
+    });
+  </script>
+
+</body>
+</html>
