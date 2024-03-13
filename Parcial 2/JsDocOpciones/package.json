@@ -1,0 +1,28 @@
+{
+  "name": "areacirculo_kevin",
+  "version": "1.0.0",
+  "description": "",
+  "main": "AreaCiruclo.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "doc": "jsdoc -c jsdoc.json --readme README.md",
+    "generate-docs": "node_modules/.bin/jsdoc --configure .jsdoc.json --verbose"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KEVINLAGOS/AreaCirculo_Kevin.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KEVINLAGOS/AreaCirculo_Kevin/issues"
+  },
+  "homepage": "https://github.com/KEVINLAGOS/AreaCirculo_Kevin#readme",
+  "devDependencies": {
+    "minami": "^1.2.3"
+  },
+  "dependencies": {
+    "taffydb": "^2.7.3"
+  }
+}
