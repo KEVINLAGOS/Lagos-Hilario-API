@@ -1,4 +1,5 @@
-import * as chai from chai;
+import * as chai from 'chai'
+import test from 'node:test';
 import * as area from '../src/AreaCirculo.js'
 
 test('Calcular area 30', () => {
