@@ -5,7 +5,6 @@ const port = 3000
 const path = require('path')
 const swaggerUI = require('swagger-ui-express');
 const swaggerJsDoc = require('swagger-jsdoc');
-
 app.use(express.json());
 
 const connection =  mysql.createConnection({
