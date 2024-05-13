@@ -5,7 +5,14 @@ const port = 3000
 const path = require('path')
 const swaggerUI = require('swagger-ui-express');
 const swaggerJsDoc = require('swagger-jsdoc');
-app.use(express.json());
+
+const { SwaggerTheme,SwaggerThemeNameEnum } = require('swagger-themes');
+const theme = new SwaggerTheme();
+
+const options = {
+  explorer: true,
+  customCss: theme.getBuffer(SwaggerThemeNameEnum.DARK)
+};
 
 const connection =  mysql.createConnection({
   host: 'localhost',
@@ -184,7 +191,11 @@ const swaggerOptions = {
  app.get("/api-docs-json", (req, res) => {
   res.json(swaggerDocs);
 });
-
+app.use('/api-docs-swagger', swaggerUI.serve, swaggerUI.setup(swaggerDocs, options));
+app.get("/api-docs-redoc", (req, res) => {
+  res.setHeader("Content-Type", "application/json");
+  res.send(swaggerDocs);
+});
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
