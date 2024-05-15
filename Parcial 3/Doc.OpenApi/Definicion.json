@@ -1,0 +1,194 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API Personas",
+    "version": "1.0.0",
+    "description": "Este código implementa un servidor Express.js que gestiona una API RESTful para realizar operaciones CRUD (Crear, Leer, Actualizar y Eliminar) sobre una base de datos MySQL de personas. Además, integra Swagger para documentar y visualizar la API. Los endpoints permiten obtener todas las personas o una específica, crear una nueva persona, actualizar una persona existente y eliminar una persona por su ID. La documentación de la API se genera a partir de un archivo README.md para una descripción detallada del proyecto."
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000"
+    }
+  ],
+  "paths": {
+    "/personas": {
+      "get": {
+        "summary": "Obtener todas las personas o una persona por su ID",
+        "tags": [
+          "Personas"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "id",
+            "schema": {
+              "type": "integer"
+            },
+            "description": "ID de la persona a obtener (opcional)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Datos de la(s) persona(s) encontrada(s)"
+          },
+          "500": {
+            "description": "Error al buscar las personas en la base de datos"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Eliminar una persona por su ID",
+        "tags": [
+          "Personas"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "id",
+            "schema": {
+              "type": "integer"
+            },
+            "required": true,
+            "description": "ID de la persona a eliminar"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Persona eliminada correctamente"
+          },
+          "400": {
+            "description": "Debe proporcionar un ID para eliminar un registro"
+          },
+          "500": {
+            "description": "Error al eliminar la persona de la base de datos"
+          }
+        }
+      },
+      "put": {
+        "summary": "Actualizar una persona por su ID",
+        "tags": [
+          "Personas"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "id",
+            "schema": {
+              "type": "integer"
+            },
+            "required": true,
+            "description": "ID de la persona a actualizar"
+          },
+          {
+            "in": "body",
+            "name": "persona",
+            "required": true,
+            "description": "Campos a actualizar de la persona",
+            "schema": {
+              "$ref": "#/components/schemas/Persona"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Persona actualizada correctamente"
+          },
+          "400": {
+            "description": "Se requiere al menos un campo para modificar el registro"
+          },
+          "500": {
+            "description": "Error al modificar la persona en la base de datos"
+          }
+        }
+      },
+      "post": {
+        "summary": "Crear una nueva persona",
+        "tags": [
+          "Personas"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Persona"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Nueva persona creada correctamente"
+          },
+          "400": {
+            "description": "Se requieren todos los campos para crear un nuevo registro"
+          },
+          "500": {
+            "description": "Error al insertar la nueva persona en la base de datos"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Persona": {
+        "type": "object",
+        "required": [
+          "nombre",
+          "direccion",
+          "curp",
+          "nacionalidad",
+          "numero",
+          "ciudad",
+          "estado",
+          "codigo"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "ID único generado automáticamente para la persona"
+          },
+          "nombre": {
+            "type": "string",
+            "description": "Nombre de la persona"
+          },
+          "direccion": {
+            "type": "string",
+            "description": "Dirección de la persona"
+          },
+          "curp": {
+            "type": "string",
+            "description": "CURP de la persona"
+          },
+          "nacionalidad": {
+            "type": "string",
+            "description": "Nacionalidad de la persona"
+          },
+          "numero": {
+            "type": "string",
+            "description": "Número de teléfono de la persona"
+          },
+          "ciudad": {
+            "type": "string",
+            "description": "Ciudad de residencia de la persona"
+          },
+          "estado": {
+            "type": "string",
+            "description": "Estado de residencia de la persona"
+          },
+          "codigo": {
+            "type": "string",
+            "description": "Código postal de la persona"
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Personas",
+      "description": "Operaciones relacionadas con personas"
+    }
+  ]
+}

@@ -285,6 +285,10 @@ app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocs));
  app.get("/api-docs-json", (req, res) => {
   res.json(swaggerDocs);
 });
+app.get("/api-docs-redoc", (req, res) => {
+  res.setHeader("Content-Type", "application/json");
+  res.send(swaggerDocs);
+});
 // Start the server
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
