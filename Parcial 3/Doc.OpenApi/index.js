@@ -5,7 +5,11 @@ const port = 3000;
 const path = require('path');
 const swaggerUI = require('swagger-ui-express');
 const swaggerJsDoc = require('swagger-jsdoc');
+const fs = require('fs'); // Importa el módulo fs para leer archivos
 app.use(express.json());
+
+// Leer el archivo README.md de forma síncrona
+const readmeContent = fs.readFileSync(path.join(__dirname, 'README.md'), 'utf8');
 
 const connection = mysql.createConnection({
   host: 'localhost',
@@ -264,6 +268,7 @@ const swaggerOptions = {
     info: {
       title: 'API Personas',
       version: '1.0.0',
+      description: readmeContent, // Agrega la descripción desde el archivo README.md
     },
     servers: [
       { url: `http://localhost:${port}` }
@@ -277,7 +282,9 @@ const swaggerDocs = swaggerJsDoc(swaggerOptions);
 
 // Serve swagger documentation
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocs));
-
+ app.get("/api-docs-json", (req, res) => {
+  res.json(swaggerDocs);
+});
 // Start the server
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
